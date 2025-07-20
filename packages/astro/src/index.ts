@@ -1,6 +1,6 @@
 import type { AstroIntegration } from "astro";
 import { fileURLToPath } from "node:url";
-import { existsSync, readFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 
 export default function tistoryPreviewer(): AstroIntegration {
   return {
@@ -25,20 +25,29 @@ export default function tistoryPreviewer(): AstroIntegration {
             const skinContent = readFileSync(skinEntry, "utf-8");
 
             if (!skinContent.includes("export const prerender = false")) {
-              console.error(`
-🚫 티스토리 스킨 프리뷰어 설정 필요
+              const lines = skinContent.split("\n");
+              const frontmatterEndIndex = lines.findIndex((line, idx) => {
+                return idx > 0 && line.trim() === "---";
+              });
 
-src/pages/skin.astro 파일에 다음 구문을 추가해주세요:
+              if (frontmatterEndIndex > 0) {
+                lines.splice(
+                  frontmatterEndIndex,
+                  0,
+                  "export const prerender = false;"
+                );
+              } else {
+                lines.unshift("---");
+                lines.push("export const prerender = false;");
+                lines.push("---");
+              }
 
----
-export const prerender = false;
----
+              const modifiedContent = lines.join("\n");
+              writeFileSync(skinEntry, modifiedContent, "utf-8");
 
-이 설정이 없으면 동적 라우팅에서 오류가 발생할 수 있습니다.
-              `);
-
-              console.warn("⚠️  prerender = false 설정을 확인해주세요!");
-              process.exit(1);
+              console.error(
+                "⚠️ skin.astro 파일에 'export const prerender = false;'를 추가했습니다."
+              );
             }
           }
 
@@ -64,6 +73,18 @@ export const prerender = false;
           // "head-inline",
           // `<link rel="stylesheet" href="https://tistory.github.io/tistory-skin-docs/css/default.css">`
           // );
+        } else if (command === "build") {
+          // 빌드 시 "export const prerender = false;"가 있으면, 해당 라인을 제거
+          if (existsSync(skinEntry)) {
+            const skinContent = readFileSync(skinEntry, "utf-8");
+            const modifiedContent = skinContent.replace(
+              "export const prerender = false;",
+              ""
+            );
+            writeFileSync(skinEntry, modifiedContent, "utf-8");
+          } else {
+            console.error("⚠️ skin.astro 파일이 존재하지 않습니다.");
+          }
         }
 
         // Vite 설정 업데이트
