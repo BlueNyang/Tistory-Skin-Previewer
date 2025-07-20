@@ -1,1 +1,3 @@
-# this scripts can only support for "Astro"
+# Tistory Skin Previewer `v0.5.0`
+
+##
