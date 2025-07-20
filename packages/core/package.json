@@ -1,0 +1,48 @@
+{
+  "name": "@tistory-skin-previewer/core",
+  "version": "0.5.0",
+  "description": "Core functionality for Tistory skin previewing",
+  "author": "Bluenyang",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist",
+    "test": "vitest",
+    "check-types": "tsc --noEmit",
+    "lint": "echo 'lint not configured'"
+  },
+  "dependencies": {
+    "fast-glob": "^3.3.2",
+    "mime-types": "^2.1.35",
+    "node-html-parser": "^6.1.11"
+  },
+  "devDependencies": {
+    "@types/mime-types": "^2.1.4",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.0",
+    "vitest": "^3.2.4"
+  },
+  "keywords": [
+    "tistory",
+    "skin",
+    "preview",
+    "blog"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

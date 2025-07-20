@@ -1,0 +1,36 @@
+{
+  "name": "tistory-skin-previewer",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean",
+    "check-types": "turbo run check-types",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=!example* && changeset publish",
+    "dev:core": "turbo run dev --filter=@tistory-skin-previewer/core",
+    "dev:astro": "turbo run dev --filter=@tistory-skin-previewer/astro"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2",
+    "prettier": "^3.6.2",
+    "turbo": "^2.5.5",
+    "typescript": "5.8.3",
+    "@types/node": "^20.10.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "npm@11.4.2",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
