@@ -68,11 +68,6 @@ export default function tistoryPreviewer(): AstroIntegration {
             pattern: "/",
             entrypoint: skinEntry,
           });
-
-          // injectScript(
-          // "head-inline",
-          // `<link rel="stylesheet" href="https://tistory.github.io/tistory-skin-docs/css/default.css">`
-          // );
         } else if (command === "build") {
           // 빌드 시 "export const prerender = false;"가 있으면, 해당 라인을 제거
           if (existsSync(skinEntry)) {

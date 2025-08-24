@@ -1,6 +1,6 @@
 {
   "name": "@tistory-skin-previewer/core",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "Core functionality for Tistory skin previewing",
   "author": "Bluenyang",
   "main": "./dist/index.js",

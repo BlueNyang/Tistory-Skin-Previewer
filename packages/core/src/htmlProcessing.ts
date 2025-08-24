@@ -73,6 +73,9 @@ export default function processHtml(html: string, pathname: string): string {
   // 빈 줄 정리
   processedHtml = processedHtml.replace(/\n\s*\n/g, "\n");
 
+  // 실행 과정에서 발생하는 이중 슬래시 정리
+  processedHtml = processedHtml.replace(/src="\/\/([^]*?)"/g, 'src="/$1"');
+
   // 개발 모드 정보 추가
   const debugInfo = `
     <!-- 티스토리 스킨 개발 모드 -->

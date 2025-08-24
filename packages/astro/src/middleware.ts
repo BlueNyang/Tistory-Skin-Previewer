@@ -1,4 +1,3 @@
-// src/middleware/advanced.ts
 import type { MiddlewareHandler } from "astro";
 import { processHtml } from "@tistory-skin-previewer/core";
 
